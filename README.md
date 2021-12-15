@@ -5,8 +5,6 @@ To run the Docker Image enter the following command:
 
 `docker run -d -p 4200:80 ghcr.io/garrettmaples/search-engine-scraper-ui:main`
 
-Navigate to the following URL to get started:
-
-`http://localhost:4200/index.html`
+Navigate [here](http://localhost:4200/index.html) to get started:
 
 **This image relies on the [search-engine-scraper](https://github.com/GarrettMaples/search-engine-scraper) running on port 5000.**
