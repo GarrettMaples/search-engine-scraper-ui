@@ -36,23 +36,28 @@
 
 <div [hidden]="!submitted">
   <br/>
-  <div *ngIf="urlScrapeResultsModel | async as resultModel">
-    <div *ngIf="resultModel.results?.length ?? 0 != 0; else noResultsFound">
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">Position</th>
-          <th scope="col">Url</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor='let resultModel of resultModel.results'>
-          <td>{{resultModel.index}}</td>
-          <td>{{resultModel.url}}</td>
-        </tr>
-        </tbody>
-      </table>
+  <div *ngIf="error; else displayResults">
+    There was an error processing your request. You may have exceeded Google's rate limit.
+  </div>
+  <ng-template #displayResults>
+    <div *ngIf="urlScrapeResultsModel | async as resultModel">
+      <div *ngIf="resultModel.results?.length ?? 0 != 0; else noResultsFound">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">Position</th>
+            <th scope="col">Url</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor='let resultModel of resultModel.results'>
+            <td>{{resultModel.index}}</td>
+            <td>{{resultModel.url}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <ng-template #noResultsFound>No Results Found...</ng-template>
-  </div>
+  </ng-template>
 </div>

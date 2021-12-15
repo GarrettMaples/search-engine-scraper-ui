@@ -8,7 +8,7 @@ import {UrlScrapeResultsModel} from "../models/url-scrape-results-model";
 })
 export class GoogleUrlScraperService {
 
-  baseUrl = 'https://localhost:5001/api/google-scrape/url-scrape'
+  baseUrl = 'http://localhost:5000/api/google-scrape/url-scrape'
 
   constructor(private httpClient: HttpClient) { }
 
