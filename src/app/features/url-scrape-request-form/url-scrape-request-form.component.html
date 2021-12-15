@@ -1,0 +1,58 @@
+<form (ngSubmit)="onSubmit()" #googleScrapeForm="ngForm">
+  <div class="form-group">
+    <label for="search">Keyword Search</label>
+    <input type="text" class="form-control" id="search"
+           required
+           [(ngModel)]="urlScrapeRequestModel.search" name="search"
+           #search="ngModel">
+    <div [hidden]="search.valid || search.pristine"
+         class="alert alert-danger">
+      Keyword Search is required
+    </div>
+
+    <label for="url">URL</label>
+    <input type="text" class="form-control" id="url"
+           required
+           [(ngModel)]="urlScrapeRequestModel.url" name="url"
+           #url="ngModel">
+    <div [hidden]="url.valid || url.pristine"
+         class="alert alert-danger">
+      URL is required
+    </div>
+
+    <label for="resultCount">Result Count</label>
+    <input type="number" class="form-control" id="resultCount"
+           required
+           [min]="1"
+           [(ngModel)]="urlScrapeRequestModel.resultCount" name="resultCount"
+           #resultCount="ngModel">
+    <div [hidden]="resultCount.valid || resultCount.pristine"
+         class="alert alert-danger">
+      Result Count is required and must be greater than 0
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!googleScrapeForm.form.valid">Submit</button>
+</form>
+
+<div [hidden]="!submitted">
+  <br/>
+  <div *ngIf="urlScrapeResultsModel | async as resultModel">
+    <div *ngIf="resultModel.results?.length ?? 0 != 0; else noResultsFound">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Position</th>
+          <th scope="col">Url</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let resultModel of resultModel.results'>
+          <td>{{resultModel.index}}</td>
+          <td>{{resultModel.url}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noResultsFound>No Results Found...</ng-template>
+  </div>
+</div>
